@@ -1,31 +1,35 @@
-// Implement a program that creates a structure to store the details of the books in a library:
+/******************************************************************************
 
-// title (char [15]),
-// price (double)
-// pages (int).
+Implement a program that creates a structure to store the details of the books in a library:
 
-// Program must allow to register from the keyboard at least 3 books requesting the previous data title, price, etc...
-// Implement a function to determine which of the registered books costs less and which costs more.
-// Implement a function to identify if there are two or more books with the same number of pages. Send only one message
+title (char [15]),
+price (double)
+pages (int).
 
-// INPUT:
-// Book 1
-//     Enter the book name: Introduction to C
-//     Enter the price : 525.9
-//     pages: 24
-// Book 2
-//     Enter the book name: Java Programming
-//     Enter the price : 654.80
-//     pages: 25
-// Book 3
-//     Enter the book name: Databases
-//     Enter the price : 125.3
-//     pages: 25
+Program must allow to register from the keyboard at least 3 books requesting the previous data title, price, etc...
+Implement a function to determine which of the registered books costs less and which costs more.
+Implement a function to identify if there are two or more books with the same number of pages. Send only one message
 
-// OUTPUT:
-// Bbook with the lowest price: Databases
-// Book with the highest price: Java Programming
-// "There are 2 books with the same number of pages: Java Programming, Databases
+INPUT:
+Book 1
+    Enter the book name: Introduction to C
+    Enter the price : 525.9
+    pages: 24
+Book 2
+    Enter the book name: Java Programming
+    Enter the price : 654.80
+    pages: 25
+Book 3
+    Enter the book name: Databases
+    Enter the price : 125.3
+    pages: 25
+
+OUTPUT:
+Bbook with the lowest price: Databases
+Book with the highest price: Java Programming
+"There are 2 books with the same number of pages: Java Programming, Databases
+
+*******************************************************************************/
 
 #include <stdio.h>
 
