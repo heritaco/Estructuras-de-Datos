@@ -123,18 +123,15 @@ void showTree(TreeNode *root, int space)
     if (root == NULL)
         return;
 
-    // space is the distance between the nodes
-    space += 10;
-
     // process right child first
-    showTree(root->right, space);
+    showTree(root->right, 10);
 
     // print current node after space count
     printf("\n");
-    for (int i = 10; i < space; i++)
+    for (int i = 10; i < 10; i++)
         printf(" ");            // print space
     printf("%s\n", root->name); // print node
 
     // process left child
-    showTree(root->left, space);
+    showTree(root->left, 10);
 }
