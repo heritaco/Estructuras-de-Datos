@@ -11,9 +11,10 @@ typedef struct tree_node
 
 TreeNode *newNode(int data);
 void insert(TreeNode *node, TreeNode *new);
-int readFromKeyBoard();
+char *readFromKeyBoard();
 int getHight(TreeNode *parent); // new
 // void showTree(TreeNode *parent); // new
+void preorder(TreeNode *parent);
 
 int main()
 {
@@ -24,7 +25,7 @@ int main()
     FILE *fp;
 
     // if file does not exist
-    if ((fp = fopen("tree.txt", "r")) == NULL)
+    if ((fp = fopen("test-num.txt", "r")) == NULL)
     {
         printf("Unable to open test file\n");
         exit(-1);
@@ -48,9 +49,20 @@ int main()
         }
         else
             insert(root, new); // insert new node
+
+        preorder(root); // show the tree
     }
     // showTree(root); // show the tree
     fclose(fp); // close the file
+}
+
+char *readFromKeyBoard()
+{
+
+    printf("\n****Enter name: ");
+    char *nombre = (char *)malloc(50 * sizeof(char));
+    scanf("%s", nombre);
+    return nombre;
 }
 
 TreeNode *newNode(int data)
@@ -112,4 +124,13 @@ int getHight(TreeNode *parent)
     // if the right child is greater than left child
     else
         return rbh + 1; // return right child height + 1
+}
+
+void preorder(TreeNode *parent)
+{
+    if (parent == NULL)
+        return;
+    printf(" %d", parent->item);
+    preorder(parent->left);
+    preorder(parent->right);
 }

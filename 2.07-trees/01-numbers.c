@@ -3,24 +3,25 @@
 
 typedef struct tree_node
 {
-    char name[100];
+    int value;
     struct tree_node *left;
     struct tree_node *right;
     int height;
 } TreeNode;
 
-TreeNode *newNode(char *name);
+TreeNode *newNode(int value);
 void insert(TreeNode *parent, TreeNode *new, int type);
-char *readFromKeyBoard();
-void showTree(TreeNode *root, int space);
+int readFromKeyBoard();
+void inOrder(TreeNode *root);
+void preOrder(TreeNode *root);
 int type;
 
 int main()
 {
     TreeNode *root = NULL;
     TreeNode *new = NULL;
-    int ans;
 
+    int ans;
     do
     { // insert in tree
         new = newNode(readFromKeyBoard());
@@ -29,62 +30,49 @@ int main()
             root = new;
             root->height += 1;
         }
-
         else
             insert(root, new, type);
 
-        showTree(root, 0);
+        // Print the tree in in-order and pre-order
+        printf("\nIn-order traversal: ");
+        inOrder(root);
+        printf("\nPre-order traversal: ");
+        preOrder(root);
+        printf("\n");
 
     } while (ans != 0);
-
     return 0;
 }
 
-char *readFromKeyBoard()
+int readFromKeyBoard()
 {
     printf("\n1) Insert to the left \n2) Insert to the right \n0) Exit\nInsert your choice: ");
     scanf("%d", &type);
-
     if (type == 0)
         exit(0);
-
     if (type != 1 && type != 2)
     {
         printf("Invalid input. Please try again.\n");
         readFromKeyBoard();
     }
 
-    static char name[100];
-    printf("Name: ");
-    scanf("%s", name);
-    return name;
+    int value;
+    printf("Value: ");
+    scanf("%d", &value);
+    return value;
 }
 
-TreeNode *newNode(char *name)
+TreeNode *newNode(int value)
 {
     TreeNode *new = (TreeNode *)malloc(sizeof(TreeNode));
-
     if (new == NULL)
         return NULL;
     else
     {
-        // copy the string
-        int i = 0;
-        // while each character is not null and i is less than 99
-        while (name[i] != '\0' && i < 99)
-        { // copy the character to the new node
-            new->name[i] = name[i];
-            i++;
-        }
-
-        // add null character to the end of the string, if not it appears something strange
-        new->name[i] = '\0';
-
+        new->value = value;
         new->left = NULL;
         new->right = NULL;
         new->height = 0;
-
-        // return the new node
         return new;
     }
 }
@@ -96,20 +84,22 @@ void insert(TreeNode *parent, TreeNode *new, int type)
         if (parent->left == NULL)
         {
             parent->left = new;
-            printf("\n%s inserted at left of %s.\n", new->name, parent->name);
+            printf("\n%d inserted at left of %d.\n", new->value, parent->value);
         }
         else
         {
             insert(parent->left, new, type);
         }
     }
+
     else if (type == 2)
     {
         if (parent->right == NULL)
         {
             parent->right = new;
-            printf("\n%s inserted at right of %s.\n", new->name, parent->name);
+            printf("\n%d inserted at right of %d.\n", new->value, parent->value);
         }
+
         else
         {
             insert(parent->right, new, type);
@@ -117,21 +107,24 @@ void insert(TreeNode *parent, TreeNode *new, int type)
     }
 }
 
-void showTree(TreeNode *root, int space)
+// Function to perform in-order traversal
+void inOrder(TreeNode *root)
 {
-    // if the root is NULL, return
-    if (root == NULL)
-        return;
+    if (root != NULL)
+    {
+        inOrder(root->left);
+        printf("%d ", root->value);
+        inOrder(root->right);
+    }
+}
 
-    // process right child first
-    showTree(root->right, 10);
-
-    // print current node after space count
-    printf("\n");
-    for (int i = 10; i < 10; i++)
-        printf(" ");            // print space
-    printf("%s\n", root->name); // print node
-
-    // process left child
-    showTree(root->left, 10);
+// Function to perform pre-order traversal
+void preOrder(TreeNode *root)
+{
+    if (root != NULL)
+    {
+        printf("%d ", root->value);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
 }
